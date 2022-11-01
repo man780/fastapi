@@ -3,3 +3,4 @@ venv/
 *.pyc
 alembic/versions
 .idea
+.DS_Store/

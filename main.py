@@ -1,13 +1,10 @@
-from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 
 from settings import settings
 
-from routers import liveness
-
-load_dotenv(".env")
+from routers import system
 
 app = FastAPI(
     title=settings.app_name,
@@ -24,9 +21,4 @@ app.add_middleware(
 )
 
 
-app.include_router(liveness.router)
-
-
-# @app.get("/health_check")
-# async def root():
-#     return {"success": True}
+app.include_router(system.router)

@@ -13,6 +13,14 @@ class VKController:
 
     __response = None
 
+    def __make_url(self):
+        self.__url = "{0}{1}{2}{3}".format(
+            self.__protocol,
+            self.__address,
+            self.__method,
+            self.__params
+        )
+
     def __send_request(self) -> None:
         clients = Clients(
             method="GET",
@@ -30,14 +38,19 @@ class VKController:
     def get_users(self, user_id: str):
         self.__method = "/users.get"
         self.__params = "?user_id="+user_id
-
-        self.__url = "{0}{1}{2}{3}".format(
-            self.__protocol,
-            self.__address,
-            self.__method,
-            self.__params
-        )
+        self.__make_url()
 
         self.__response = self.get_response_data()
-        print(self.__response)
+        # print(self.__response)
         return self.__response
+
+    def oauth_authorize(self):
+        url: str = "https://oauth.vk.com/authorize"
+        client_id: str = ""
+        redirect_uri: str = ""
+        display: str = ""
+        scope: str = ""
+        response_type: str = ""
+        state: str = ""
+
+        self.get_response_data()

@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from settings import settings
 
-from routers import system, refs
+from routers import system, refs, vk
 
 app = FastAPI(
     title=settings.app_name,
@@ -25,3 +25,4 @@ app.add_middleware(
 
 app.include_router(system.router)
 app.include_router(refs.router)
+app.include_router(vk.router)

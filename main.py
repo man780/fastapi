@@ -1,14 +1,16 @@
 from fastapi import FastAPI
+from fastapi.security import OAuth2PasswordBearer
 from fastapi_sqlalchemy import DBSessionMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 
 from settings import settings
 
-from routers import system
+from routers import system, refs
 
 app = FastAPI(
     title=settings.app_name,
 )
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app.add_middleware(DBSessionMiddleware, db_url=settings.database_url)
 
@@ -22,3 +24,4 @@ app.add_middleware(
 
 
 app.include_router(system.router)
+app.include_router(refs.router)
